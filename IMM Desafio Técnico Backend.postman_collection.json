@@ -1,0 +1,545 @@
+{
+	"info": {
+		"_postman_id": "5a7a2163-fa00-492b-bfa3-99c58b5d4f95",
+		"name": "IMM Desafio Técnico Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25133769"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Paulo Rodrigues\",\r\n    \"email\": \"paulorodrigues@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"profile\": \"646958225c21e1795728fb12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"filipebacof@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users/64694de26adaaf4b8b8b1fe6",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"64694de26adaaf4b8b8b1fe6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Filipe Bacof\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/64694de26adaaf4b8b8b1fe6",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"64694de26adaaf4b8b8b1fe6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Filipe Bacof 3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/6469523d4fd6b1af5b339d09",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"6469523d4fd6b1af5b339d09"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profiles",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/profile/6469477cf1476f7aa5fe1acf",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile",
+								"6469477cf1476f7aa5fe1acf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Profile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Estudante de TI\",\r\n    \"permissions\": [\r\n        \"READ_CLASSES\",\r\n        \"READ_CATEGORIES\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Teste 1\",\r\n    \"permissions\": [\r\n        \"READ_CATEGORIES\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/profile/6469479bf1476f7aa5fe1ad4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile",
+								"6469479bf1476f7aa5fe1ad4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Profile",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/profile/64694ce76adaaf4b8b8b1fdc",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile",
+								"64694ce76adaaf4b8b8b1fdc"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/category",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/category/6469477cf1476f7aa5fe1acf",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"category",
+								"6469477cf1476f7aa5fe1acf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Lógica\",\r\n    \"availableProfiles\": [\r\n        \"646958225c21e1795728fb12\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/category",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Category",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Matemática\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/category/646953894c97dd3262c77761",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"category",
+								"646953894c97dd3262c77761"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/category/6469559faa056e68cbdfb5cd",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"category",
+								"6469559faa056e68cbdfb5cd"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Classes (aulas)",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/class",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"class"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/class/6469477cf1476f7aa5fe1acf",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"class",
+								"6469477cf1476f7aa5fe1acf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Class",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Aula de lógica 05555\",\r\n    \"classUrl\": \"https://www.youtube.com/watch?v=fasdfG\",\r\n    \"available\": false,\r\n    \"description\": \"QUINTA AULA para deletar\",\r\n    \"creatorUserId\": \"64694de26adaaf4b8b8b1fe6\",\r\n    \"category\": \"646958365c21e1795728fb15\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/class",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"class"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Class",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Aula de lógica 04 agora indisponivel\",\r\n    \"available\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/class/6469597c5c21e1795728fb31",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"class",
+								"6469597c5c21e1795728fb31"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Class",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/class/64695aa6cb19801262c7c913",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"class",
+								"64695aa6cb19801262c7c913"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rota de Teste",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Njk0ZGUyNmFkYWFmNGI4YjhiMWZlNiIsImlhdCI6MTY4NDYyMzE0NywiZXhwIjoxNjg0NzA5NTQ3fQ.ieSpNnf4Nbw0OkolWm99R94BuTdWiiJ-1lmQH-tM4C0",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:5001",
+			"type": "string"
+		}
+	]
+}
