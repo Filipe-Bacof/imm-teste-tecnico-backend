@@ -48,22 +48,41 @@ class CategoryController {
     const { id } = request.params
     const { title, availableProfiles } = request.body
 
-    if (!title || !availableProfiles)
+    try {
+      const category = await CategoryRepository.findById(id)
+
+      if (!category) {
+        return response
+          .status(404)
+          .json({ message: 'Categoria não encontrada.' })
+      }
+
+      if (!title && !availableProfiles) {
+        return response
+          .status(400)
+          .json({ message: 'Informe os campos corretamente.' })
+      }
+
+      await CategoryRepository.findByIdAndUpdate(id, {
+        ...(title && { title: title.trim() }),
+        ...(availableProfiles && { availableProfiles }),
+        updatedAt: Date.now(),
+      })
+
+      const categoryNew = await CategoryRepository.findById(id)
+
       return response
-        .status(404)
-        .json({ message: 'Alguns campos não foram informados corretamente.' })
-
-    await CategoryRepository.findByIdAndUpdate(id, {
-      title,
-      availableProfiles,
-    })
-
-    return response
-      .status(204)
-      .json({ message: 'Categoria atualizada com sucesso.' })
+        .status(200)
+        .json({ message: 'Categoria atualizada com sucesso.', categoryNew })
+    } catch (error) {
+      console.error('Erro durante a atualização da categoria:', error)
+      return response.status(500).json({
+        message: 'Ocorreu um erro durante a atualização da categoria.',
+      })
+    }
   }
 
-  async delete(request, response) {
+  async deleteCategory(request, response) {
     const { id } = request.params
 
     const categoria = await CategoryRepository.findById(id)
@@ -73,7 +92,7 @@ class CategoryController {
         .status(404)
         .json({ message: 'Esta categoria não foi encontrada.' })
 
-    await CategoryRepository.delete(id)
+    await CategoryRepository.deleteCategory(id)
 
     return response
       .status(204)

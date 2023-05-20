@@ -2,10 +2,7 @@ const Category = require('../models/CategorySchema')
 
 class CategoryRepository {
   async findAll() {
-    const categories = await Category.find()
-      .populate([{ path: 'available_profiles' }])
-      .lean()
-      .exec()
+    const categories = await Category.find().lean().exec()
 
     return categories
   }
@@ -22,13 +19,11 @@ class CategoryRepository {
     return category
   }
 
-  async findByIdAndUpdate({ id, title, availableProfiles }) {
+  async findByIdAndUpdate(id, updateObject) {
     const category = await Category.findOneAndUpdate(
       { _id: id },
       {
-        title,
-        availableProfiles,
-        updatedAt: Date.now(),
+        ...updateObject,
       },
     )
 
@@ -52,8 +47,8 @@ class CategoryRepository {
     return category
   }
 
-  async delete(id) {
-    await Category.findOneAndDelete({ _id: id })
+  async deleteCategory(id) {
+    return await Category.findOneAndDelete({ _id: id })
   }
 }
 

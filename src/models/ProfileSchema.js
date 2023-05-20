@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
-const Permissions = require('./Permissions')
+const Permissions = require('../enum/Permissions')
 
 const profileSchema = new Schema(
   {

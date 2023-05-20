@@ -1,4 +1,4 @@
-import { Permission } from '../enum/Permissions'
+const Permissions = require('../enum/Permissions')
 const ProfileRepository = require('../repositories/ProfileRepository')
 
 class ProfileController {
@@ -42,7 +42,7 @@ class ProfileController {
       // e utilize estas permissões para efetuar
       // as validações no seu app front-end
       const isPermissionsValid = permissions.every((permission) =>
-        Object.values(Permission).includes(permission),
+        Object.values(Permissions).includes(permission),
       )
 
       if (!isPermissionsValid) {
@@ -64,53 +64,79 @@ class ProfileController {
     const { id } = request.params
     const { title, permissions } = request.body
 
-    const profile = await ProfileRepository.findById(id)
+    try {
+      const profile = await ProfileRepository.findById(id)
 
-    if (!profile)
-      return response
-        .status(400)
-        .json({ message: 'Este perfil foi não foi encontrado.' })
-
-    if (!title && !permissions)
-      return response
-        .status(400)
-        .json({ message: 'Informe os dados que deseja atualizar.' })
-
-    if (permissions) {
-      const isPermissionsValid = permissions.every((permission) =>
-        Object.values(Permission).includes(permission),
-      )
-
-      if (!isPermissionsValid) {
+      if (!profile) {
         return response
           .status(400)
-          .json({ message: 'As permissões cadastradas estão incorretas.' })
+          .json({ message: 'Este perfil não foi encontrado.' })
       }
+
+      if (!title && !permissions) {
+        return response
+          .status(400)
+          .json({ message: 'Informe os dados que deseja atualizar.' })
+      }
+
+      if (permissions) {
+        const isPermissionsValid = permissions.every((permission) =>
+          Object.values(Permissions).includes(permission),
+        )
+
+        if (!isPermissionsValid) {
+          return response
+            .status(400)
+            .json({ message: 'As permissões cadastradas estão incorretas.' })
+        }
+      }
+
+      const updatedProfile = await ProfileRepository.findByIdAndUpdate(id, {
+        ...(title && { title }),
+        ...(permissions && { permissions }),
+        updatedAt: Date.now(),
+      })
+
+      if (!updatedProfile) {
+        return response
+          .status(400)
+          .json({ message: 'Erro ao atualizar o perfil.' })
+      }
+
+      return response
+        .status(200)
+        .json({ message: 'Perfil atualizado com sucesso.' })
+    } catch (error) {
+      console.error('Erro durante a atualização do perfil:', error)
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro durante a atualização do perfil.' })
     }
-
-    await ProfileRepository.findByIdAndUpdate(id, {
-      ...(title && { title }),
-      ...(permissions && { permissions }),
-    })
-
-    return response
-      .status(204)
-      .json({ message: 'Perfil atualizado com sucesso.' })
   }
 
-  async delete(request, response) {
+  async deleteProfile(request, response) {
     const { id } = request.params
 
-    const profile = await ProfileRepository.findById(id)
+    try {
+      const profile = await ProfileRepository.findById(id)
 
-    if (!profile)
+      if (!profile) {
+        return response
+          .status(404)
+          .json({ message: 'Este perfil não foi encontrado.' })
+      }
+
+      await ProfileRepository.deleteProfile(id)
+
       return response
-        .status(404)
-        .json({ message: 'Este perfil não foi encontrado.' })
-
-    await ProfileRepository.delete(id)
-
-    return response.status(204).json({ message: 'Perfil apagado com sucesso.' })
+        .status(204)
+        .json({ message: 'Perfil apagado com sucesso.' })
+    } catch (error) {
+      console.error('Erro durante a exclusão do perfil:', error)
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro durante a exclusão do perfil.' })
+    }
   }
 }
 

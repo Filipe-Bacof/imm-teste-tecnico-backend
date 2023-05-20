@@ -90,37 +90,57 @@ class ClassController {
     const { title, classUrl, available, description, creatorUserId, category } =
       request.body
 
-    if (category) {
-      const actualCategory = await CategoryRepository.findById(category)
-      if (!actualCategory)
+    try {
+      const existingClass = await ClassRepository.findById(id)
+
+      if (!existingClass) {
         return response
           .status(404)
-          .json({ message: 'A categoria especificada não foi encontrada' })
-    }
-    if (creatorUserId) {
-      const creatorUser = await UserRepository.findById(creatorUserId)
-      if (!creatorUser)
-        return response
-          .status(404)
-          .json({ message: 'O usuário especificado não foi encontrado' })
-    }
+          .json({ message: 'A aula não foi encontrada.' })
+      }
 
-    const updatedClass = await ClassRepository.findByIdAndUpdate({
-      id,
-      ...(title && { title }),
-      ...(classUrl && { classUrl }),
-      available,
-      ...(description && { description }),
-      ...(creatorUserId && { creatorUserId }),
-      ...(category && { category }),
-    })
+      if (category) {
+        const actualCategory = await CategoryRepository.findById(category)
+        if (!actualCategory) {
+          return response
+            .status(404)
+            .json({ message: 'A categoria especificada não foi encontrada.' })
+        }
+      }
 
-    return response
-      .status(200)
-      .json({ message: 'Aula atualizada com sucesso.', updatedClass })
+      if (creatorUserId) {
+        const creatorUser = await UserRepository.findById(creatorUserId)
+        if (!creatorUser) {
+          return response
+            .status(404)
+            .json({ message: 'O usuário especificado não foi encontrado.' })
+        }
+      }
+
+      await ClassRepository.findByIdAndUpdate(id, {
+        ...(title && { title }),
+        ...(classUrl && { classUrl }),
+        available,
+        ...(description && { description }),
+        ...(creatorUserId && { creatorUserId }),
+        ...(category && { category }),
+        updatedAt: Date.now(),
+      })
+
+      const newClass = await ClassRepository.findById(id)
+
+      return response
+        .status(200)
+        .json({ message: 'Aula atualizada com sucesso.', newClass })
+    } catch (error) {
+      console.error('Erro durante a atualização da aula:', error)
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro durante a atualização da aula.' })
+    }
   }
 
-  async delete(request, response) {
+  async deleteClass(request, response) {
     const { id } = request.params
 
     const oneClass = await ClassRepository.findById(id)
@@ -129,7 +149,7 @@ class ClassController {
         .status(404)
         .json({ message: 'Esta aula não foi encontrada.' })
 
-    await ClassRepository.delete(id)
+    await ClassRepository.deleteClass(id)
 
     return response.status(204).json({ message: 'Aula deletada com sucesso.' })
   }

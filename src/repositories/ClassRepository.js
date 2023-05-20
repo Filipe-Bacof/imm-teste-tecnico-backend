@@ -3,7 +3,7 @@ const Class = require('../models/ClassSchema')
 class ClassRepository {
   async findAll() {
     const classes = await Class.find()
-      .populate([{ path: 'creatorUserId' }, { path: 'category' }])
+
       .lean()
       .exec()
 
@@ -26,7 +26,7 @@ class ClassRepository {
     const availableClasses = await Class.find({
       available: true,
     })
-      .populate([{ path: 'creatorUserId' }, { path: 'category' }])
+
       .lean()
       .exec()
 
@@ -46,25 +46,11 @@ class ClassRepository {
     return updateClass
   }
 
-  async findByIdAndUpdate({
-    id,
-    title,
-    classUrl,
-    available,
-    description,
-    creatorUserId,
-    category,
-  }) {
+  async findByIdAndUpdate(id, updatingData) {
     const updateClass = await Class.findOneAndUpdate(
       { _id: id },
       {
-        title,
-        classUrl,
-        available,
-        description,
-        creatorUserId,
-        category,
-        updatedAt: Date.now(),
+        ...updatingData,
       },
     )
 
@@ -99,8 +85,8 @@ class ClassRepository {
     return createClass
   }
 
-  async delete(id) {
-    await Class.findOneAndDelete({ _id: id })
+  async deleteClass(id) {
+    return await Class.findOneAndDelete({ _id: id })
   }
 }
 

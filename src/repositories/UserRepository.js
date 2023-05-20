@@ -2,10 +2,7 @@ const User = require('../models/UserSchema')
 
 class UserRepository {
   async findAll() {
-    const users = await User.find()
-      .populate([{ path: 'profile' }, { path: 'favorites' }])
-      .lean()
-      .exec()
+    const users = await User.find().lean().exec()
 
     return users
   }
@@ -49,19 +46,13 @@ class UserRepository {
   }
 
   async findUsersByProfile(profile) {
-    const users = await User.find({ profile })
-      .populate([{ path: 'profile' }, { path: 'favorites' }])
-      .lean()
-      .exec()
+    const users = await User.find({ profile }).lean().exec()
 
     return users
   }
 
   async findByEmail(email) {
-    const user = await User.findOne({ email })
-      .populate([{ path: 'profile' }, { path: 'favorites' }])
-      .lean()
-      .exec()
+    const user = await User.findOne({ email }).lean().exec()
 
     return user
   }
@@ -81,7 +72,7 @@ class UserRepository {
   }
 
   async delete(id) {
-    await User.findOneAndDelete({ _id: id })
+    return await User.findOneAndDelete({ _id: id })
   }
 }
 

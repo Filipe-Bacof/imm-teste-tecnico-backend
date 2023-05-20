@@ -1,5 +1,5 @@
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const UserRepository = require('../repositories/UserRepository')
 const ProfileRepository = require('../repositories/ProfileRepository')
 
@@ -146,26 +146,36 @@ class UsersController {
 
     updatedUser = await UserRepository.findByIdAndUpdate(updatedUser)
 
+    const userNew = await UserRepository.findById(id)
+
     return response
       .status(200)
-      .json({ message: 'Usuário atualizado com sucesso.', updatedUser })
+      .json({ message: 'Usuário atualizado com sucesso.', userNew })
   }
 
-  async delete(request, response) {
+  async deleteUser(request, response) {
     const { id } = request.params
 
-    const user = await UserRepository.findById(id)
+    try {
+      const user = await UserRepository.findById(id)
 
-    if (!user)
+      if (!user) {
+        return response
+          .status(404)
+          .json({ message: 'Este usuário não foi encontrado.' })
+      }
+
+      await UserRepository.delete(id)
+
       return response
-        .status(404)
-        .json({ message: 'Este usuário não foi encontrado.' })
-
-    await UserRepository.delete(id)
-
-    return response
-      .status(204)
-      .json({ message: 'Usuário deletado com sucesso.' })
+        .status(204)
+        .json({ message: 'Usuário deletado com sucesso.' })
+    } catch (error) {
+      console.error('Erro durante a exclusão do usuário:', error)
+      return response
+        .status(500)
+        .json({ message: 'Ocorreu um erro durante a exclusão do usuário.' })
+    }
   }
 
   // async forgot(request, response) {}

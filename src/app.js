@@ -13,7 +13,7 @@ app.listen(port, () => {
   console.log(`🔥 App rodando na porta ${port}`)
 })
 
-const router = require('./routes/Router.js')
+const router = require('./Router.js')
 app.use(router)
 
 // DB Connection

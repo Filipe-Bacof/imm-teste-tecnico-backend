@@ -19,13 +19,11 @@ class ProfileRepository {
     return profile
   }
 
-  async findByIdAndUpdate({ id, title, permissions }) {
+  async findByIdAndUpdate(id, data) {
     const profile = await Profile.findOneAndUpdate(
       { _id: id },
       {
-        title,
-        permissions,
-        updatedAt: Date.now(),
+        ...data,
       },
     )
 
@@ -49,8 +47,8 @@ class ProfileRepository {
     return profile
   }
 
-  async delete(id) {
-    await Profile.findOneAndDelete({ _id: id })
+  async deleteProfile(id) {
+    return await Profile.findOneAndDelete({ _id: id })
   }
 }
 
