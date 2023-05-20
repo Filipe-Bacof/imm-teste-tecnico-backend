@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "@rocketseat/eslint-config/node"
+  ]
+}
+
+// Para salvar automaticamente ao salvar os arquivos
+// é só adicionar isso nas suas configurações do vscode:
+// "editor.codeActionsOnSave": {
+//   "source.fixAll.eslint": true
+// },
