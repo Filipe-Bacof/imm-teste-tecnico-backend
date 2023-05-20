@@ -7,7 +7,7 @@ const classSchema = new Schema(
       type: String,
       required: true,
     },
-    class_url: {
+    classUrl: {
       type: String,
       required: true,
     },
@@ -20,7 +20,7 @@ const classSchema = new Schema(
       type: String,
       required: true,
     },
-    creator_user_id: {
+    creatorUserId: {
       type: mongoose.ObjectId,
       required: true,
       ref: 'User',

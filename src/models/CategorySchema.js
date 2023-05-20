@@ -7,7 +7,7 @@ const categorySchema = new Schema(
       type: String,
       required: true,
     },
-    available_profiles: [
+    availableProfiles: [
       {
         type: mongoose.ObjectId,
         default: [],
