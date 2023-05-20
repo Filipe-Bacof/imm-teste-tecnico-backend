@@ -16,6 +16,12 @@ class CategoryRepository {
     return categories
   }
 
+  async findByName(title) {
+    const category = await Category.findOne({ title })
+
+    return category
+  }
+
   async findByIdAndUpdate({ id, title, availableProfiles }) {
     const category = await Category.findOneAndUpdate(
       { _id: id },

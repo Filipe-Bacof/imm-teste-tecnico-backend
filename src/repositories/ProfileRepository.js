@@ -13,6 +13,12 @@ class ProfileRepository {
     return profiles
   }
 
+  async findByName(title) {
+    const profile = await Profile.findOne({ title })
+
+    return profile
+  }
+
   async findByIdAndUpdate({ id, title, permissions }) {
     const profile = await Profile.findOneAndUpdate(
       { _id: id },

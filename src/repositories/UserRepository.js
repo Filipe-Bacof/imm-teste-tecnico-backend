@@ -48,6 +48,24 @@ class UserRepository {
     return user
   }
 
+  async findUsersByProfile(profile) {
+    const users = await User.find({ profile })
+      .populate([{ path: 'profile' }, { path: 'favorites' }])
+      .lean()
+      .exec()
+
+    return users
+  }
+
+  async findByEmail(email) {
+    const user = await User.findOne({ email })
+      .populate([{ path: 'profile' }, { path: 'favorites' }])
+      .lean()
+      .exec()
+
+    return user
+  }
+
   async create({ name, email, password, pictureUrl, profile, favorites }) {
     const user = new User({
       name,

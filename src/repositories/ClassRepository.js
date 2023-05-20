@@ -16,6 +16,36 @@ class ClassRepository {
     return classes
   }
 
+  async findByName(title) {
+    const oneClass = await Class.findOne({ title })
+
+    return oneClass
+  }
+
+  async findAvailable() {
+    const availableClasses = await Class.find({
+      available: true,
+    })
+      .populate([{ path: 'creatorUserId' }, { path: 'category' }])
+      .lean()
+      .exec()
+
+    return availableClasses
+  }
+
+  async handleAvailability({ id, available }) {
+    const updateClass = await Class.findOneAndUpdate(
+      { _id: id },
+      {
+        available,
+        updatedAt: Date.now(),
+      },
+    )
+
+    await updateClass.save()
+    return updateClass
+  }
+
   async findByIdAndUpdate({
     id,
     title,
