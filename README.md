@@ -29,39 +29,66 @@
 - Essa abordagem torna o sistema mais versátil e profissional, permitindo que o `Product Owner` adapte a estrutura de acordo com suas necessidades e compreensão.
 - **Isso oferece maior autonomia, controle e segurança ao Product Owner.**
 
-## Tabelas do Banco:
-```
-USERS
-  - _id: Gerado pelo mongoDB;
-  - name: Nome do usuário;
-  - email: Email para login;
-  - password: Senha para login;
-  - picture_url: URL de uma imagem para exibir no front;
-  - profile: Referencia a tabela de perfil, só pode ter 1 perfil no usuário;
-  - favorites: todas as aulas favoritadas pelo usuário;
-```
-```
-PROFILES
-  - _id: Gerado pelo mongoDB;
-  - title: Identificador do perfil;
-  - permissions (enum): Array com as permissões pré-definidas com os CRUDS;
-```
-```
-CLASSES
-  - _id: Gerado pelo mongoDB;
-  - title: Titulo da aula;
-  - class_url: URL do vídeo do youtube de uma aula;
-  - available: Se a aula está disponível;
-  - description: Descrição da aula;
-  - creator_user_id: Usuário que disponibilizou essa aula no sistema;
-  - category: Categoria da aula (pode ser 1 ou mais)
-```
-```
-CATEGORIES
-  - _id: Gerado pelo mongoDB;
-  - title: Identificador da categoria;
-  - available_profiles: Para quais perfís essa categoria é visível;
-```
+## Tabelas do Banco (Collections):
+<table>
+  <tr>
+    <th>USERS</th>
+    <th>PROFILES</th>
+    <th>CLASSES</th>
+    <th>CATEGORIES</th>
+  </tr>
+  <tr>
+    <td>_id: Gerado pelo mongoDB;</td>
+    <td>_id: Gerado pelo mongoDB;</td>
+    <td>_id: Gerado pelo mongoDB;</td>
+    <td>_id: Gerado pelo mongoDB;</td>
+  </tr>
+  <tr>
+    <td>name: Nome do usuário;</td>
+    <td>title: Identificador do perfil;</td>
+    <td>title: Titulo da aula;</td>
+    <td>title: Identificador da categoria;</td>
+  </tr>
+  <tr>
+    <td>email: Email para login;</td>
+    <td>permissions (enum): Array com as permissões pré-definidas com os CRUDS;</td>
+    <td>class_url: URL do vídeo do youtube de uma aula;</td>
+    <td>available_profiles: Para quais perfís essa categoria é visível;</td>
+  </tr>
+  <tr>
+    <td>password: Senha para login;</td>
+    <td></td>
+    <td>available: Se a aula está disponível;</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>picture_url: URL de uma imagem para exibir no front;</td>
+    <td></td>
+    <td>description: Descrição da aula;</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>profile: Referencia a tabela de perfil, só pode ter 1 perfil no usuário;</td>
+    <td></td>
+    <td>creator_user_id: Usuário que disponibilizou essa aula no sistema;</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>favorites: todas as aulas favoritadas pelo usuário;</td>
+    <td></td>
+    <td>category: Categoria da aula (pode ser 1 ou mais);</td>
+    <td></td>
+  </tr>
+</table>
+
+## Banco de Dados MongoDB
+- No MongoDB, as tabelas são chamadas de coleções, já que se trata de um banco de dados não relacional.
+- Essa estrutura de documento fornecida pelo MongoDB é perfeita para trabalhar com JavaScript, pois os dados retornados são naturalmente convertidos em objetos JavaScript.
+- Ao executar uma consulta, o MongoDB retorna um JSON contendo os dados, facilitando a manipulação e utilização dessas informações em aplicações JavaScript.
+- Diferentemente dos bancos de dados relacionais, como o SQL, onde precisamos fazer joins entre tabelas para obter informações relacionadas, no MongoDB utilizamos o conceito de "populate" para buscar dados relacionados.
+- O "populate" permite buscar informações adicionais em outras coleções com base em referências entre documentos. Essa abordagem simplifica o acesso a dados relacionados e evita a necessidade de fazer joins complexos.
+- Essas características tornam o MongoDB uma escolha popular para desenvolvedores que trabalham com JavaScript e desejam um banco de dados flexível e escalável.
+
 ## ENUM PERMISSIONS
 - Contém todos os CRUDS, para que apenas usuários autorizados possam efetuar as operações que lhe forem atribuidas, isso garante uma forma dinâmica para arquitetar o front-end;
 - Se você quer adicionar mais permissões, altere no arquivo enum/Permissions.js e utilize estas permissões para efetuar as validações na sua aplicação front-end;
