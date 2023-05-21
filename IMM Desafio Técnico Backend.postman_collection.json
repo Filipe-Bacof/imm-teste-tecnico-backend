@@ -397,6 +397,75 @@
 					"response": []
 				},
 				{
+					"name": "Get All with Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/class?page=2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"class"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All with User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/class?user=646958ce5c21e1795728fb1f",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"class"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "646958ce5c21e1795728fb1f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All with Filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/class?filter=matemática",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"class"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "matemática"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get One",
 					"request": {
 						"method": "GET",
@@ -415,13 +484,32 @@
 					"response": []
 				},
 				{
+					"name": "Get User Favorite Classes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/class/favorites/64694de26adaaf4b8b8b1fe6",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"class",
+								"favorites",
+								"64694de26adaaf4b8b8b1fe6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create Class",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Aula de lógica 05555\",\r\n    \"classUrl\": \"https://www.youtube.com/watch?v=fasdfG\",\r\n    \"available\": false,\r\n    \"description\": \"QUINTA AULA para deletar\",\r\n    \"creatorUserId\": \"64694de26adaaf4b8b8b1fe6\",\r\n    \"category\": \"646958365c21e1795728fb15\"\r\n}",
+							"raw": "{\r\n    \"title\": \"delete\",\r\n    \"classUrl\": \"https://www.youtube.com/watch?v=WzjuLuc0qwk\",\r\n    \"available\": true,\r\n    \"description\": \"QUINTA AULA para deletar\",\r\n    \"creatorUserId\": \"64694de26adaaf4b8b8b1fe6\",\r\n    \"category\": \"646953dc4c97dd3262c77767\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -468,18 +556,43 @@
 					"response": []
 				},
 				{
-					"name": "Delete Class",
+					"name": "Favorite Class",
 					"request": {
-						"method": "DELETE",
+						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/class/64695aa6cb19801262c7c913",
+							"raw": "{{URL}}/class/favorite/646959075c21e1795728fb24?user=64694de26adaaf4b8b8b1fe6",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"class",
-								"64695aa6cb19801262c7c913"
+								"favorite",
+								"646959075c21e1795728fb24"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "64694de26adaaf4b8b8b1fe6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Class",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/class/646a5d9c70425faacfeea4bd",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"class",
+								"646a5d9c70425faacfeea4bd"
 							]
 						}
 					},
