@@ -10,8 +10,9 @@
   <img alt="EsLint" height="70" width="70" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/ESLint_logo.svg/1200px-ESLint_logo.svg.png" />
 </div>
 
-- Techs: NodeJS, Express, JavaScript, MongoDB, Mongoose, JsonWebToken, Nodemon, Eslint
-- [Ver Portifólio Filipe Bacof](https://portifolio-filipe-bacof.vercel.app/)
+- Techs: NodeJS, Express, JavaScript, MongoDB, Mongoose, JsonWebToken, Nodemon, Eslint;
+- Desenvolvido nos dias 19, 20 e 21 de Maio de 2023;
+- [Ver Portifólio Filipe Bacof](https://portifolio-filipe-bacof.vercel.app/);
 
 ## Arquitetura Escolhida:
 - A arquitetura deste projeto segue o paradigma de Programação Orientada a Objetos (POO) e utiliza um design pattern chamado `Singleton`.
@@ -62,46 +63,46 @@ CATEGORIES
 ```
 ## ENUM PERMISSIONS
 - Contém todos os CRUDS, para que apenas usuários autorizados possam efetuar as operações que lhe forem atribuidas, isso garante uma forma dinâmica para arquitetar o front-end;
+- Se você quer adicionar mais permissões, altere no arquivo enum/Permissions.js e utilize estas permissões para efetuar as validações na sua aplicação front-end;
 
 ## Criação de Usuário
 - Mantive a rota de criação de usuário "desprotegida", para qualquer um poder criar um, como é no facebook por exemplo, dependendo da regra de negócio, são poucas alterações necessárias para adaptar, por exemplo, se for uma pessoa de determinado cargo que possa criar os usuários apenas;
 
-## Testando a API no postman
-- Basta Substituir a URL do tópico abaixo pelo seu localhost caso esteja rodando no seu dispositivo, ou substituir a variável {{URL}} dentro do postman pelo link da API publicada no Railway, mais abaixo fornecerei mais informações.
-- Na pasta raiz do projeto você encontrará um JSON chamado `"IMM Desafio Técnico Backend.postman_collection"`, este arquivo você pode importar no `Postman` para efetuar as requisições.
+## Testando a API no Postman
+- Basta Substituir a URL do tópico abaixo pelo seu localhost caso esteja rodando no seu dispositivo, ou substituir a variável {{URL}} dentro do postman pelo link da API publicada no Railway, mais abaixo fornecerei mais informações;
+- Na pasta raiz do projeto você encontrará um JSON chamado `"IMM Desafio Técnico Backend.postman_collection"`, este arquivo você pode importar no `Postman` para efetuar as requisições;
 
 ## Todos os EndPoints:
-- `URL/` = rota GET apenas para testar, no navegador ela exibe "Essa é uma rota de teste! A API está funcionando"
+- `URL/` = Rota GET apenas para testar, no navegador ela exibe "Essa é uma rota de teste! A API está funcionando";
 - `URL/auth/register`
-  - POST para cadastrar um novo usuário
+  - POST para cadastrar um novo usuário;
 - `URL/auth/login`
-  - POST para fazer login com um usuário cadastrado
+  - POST para fazer login com um usuário cadastrado;
 - `URL/users`
-  - endpoint padrão para o CRUD de usuários
+  - Endpoint padrão para o CRUD de usuários;
 - `URL/profile`
-  - endpoint padrão para o CRUD de perfís
+  - Endpoint padrão para o CRUD de perfís;
 - `URL/category`
-  - endpoint padrão para o CRUD de categorias
+  - Endpoint padrão para o CRUD de categorias;
 - `URL/class`
-  - endpoint padrão para o CRUD de aulas
+  - Endpoint padrão para o CRUD de aulas;
 - `URL/class/favorites`
-  - endpoint padrão para o listagem de aulas favoritas e para favoritar
+  - Endpoint padrão para o listagem de aulas favoritas e para favoritar;
 
 ## Favoritos
-- Todos os usuários possuem um array de favoritos
-- O endpoint `URL/class/favorite/<IDAULA>?user=<IDUSUARIO>` adiciona a aula dentro desse array
-
-## Por que URLs de vídeos do YouTube:
-- Geralmente, é recomendado utilizar um serviço externo para o armazenamento de vídeos ou fotos, em vez de guardar as mídias dentro do próprio servidor. Existem algumas razões para isso. Primeiro, o armazenamento de mídias dentro do servidor pode ocupar muito espaço em disco, o que pode resultar em custos adicionais de armazenamento e afetar o desempenho do servidor. Além disso, o armazenamento de mídias em um serviço externo oferece maior escalabilidade, flexibilidade e redundância de dados.
-- No caso deste projeto, optei por armazenar apenas os dados no MongoDB, que é um banco de dados não relacional eficiente e adequado para esse propósito. O armazenamento das mídias em um serviço de armazenamento em nuvem, como o Amazon S3 ou o Google Cloud Storage, é uma abordagem comum. Dessa forma, as mídias são armazenadas de forma segura e podem ser acessadas facilmente por meio de URLs.
-- Ao utilizar URLs do YouTube, o front-end pode disponibilizar os vídeos de forma eficiente, sem a necessidade de armazenar os arquivos de vídeo localmente. Isso reduz a carga no servidor e permite que o YouTube lide com a entrega do conteúdo de maneira otimizada.
-- Mesmo assim, se você preferir fazer o armazenamento das mídias no próprio servidor, uma abordagem comum é criar uma pasta chamada "uploads" (ou outro nome apropriado) onde as mídias seriam armazenadas. Dentro dessa pasta, as mídias podem ser organizadas em subpastas de acordo com as categorias. Por exemplo, cada categoria pode ter sua própria subpasta para armazenar as mídias relacionadas. Para fazer o upload das mídias para o servidor, é comum utilizar o formato multipart/form-data para enviar os arquivos por meio de formulários.
-- No entanto, é importante considerar os prós e contras de armazenar mídias no servidor versus utilizar um serviço externo, como mencionado anteriormente. A escolha depende das necessidades específicas do projeto, considerando fatores como escalabilidade, custos, desempenho e segurança.
-- É importante ressaltar que o armazenamento de mídias em um serviço externo é uma prática recomendada, especialmente para projetos de médio a grande porte, onde a gestão eficiente de mídias é essencial.
+- Todos os usuários possuem um array de favoritos;
+- O endpoint `URL/class/favorite/<IDAULA>?user=<IDUSUARIO>` adiciona a aula dentro desse array;
 
 ## Hospedagem:
 - [Ver site do Railway](https://railway.app/)
-- Eu escolhi implantar a API usando o Railway, que oferece um plano gratuito bastante generoso, disponibilizando 500 horas gratuitas de uso por mês.
-- Nesta situação, onde o objetivo principal é testar e avaliar a API, optar pelo plano gratuito oferecido pelo Railway parece ser a melhor escolha. Isso nos permite explorar e avaliar a funcionalidade e o desempenho da API sem incorrer em custos significativos.
-- URL da Hospedagem: [Abrir App](https://imm-teste-tecnico-backend.up.railway.app/)
-- Como 
+- Eu escolhi implantar a API usando o Railway, que oferece um plano gratuito bastante generoso, disponibilizando 500 horas gratuitas de uso por mês;
+- Nesta situação, onde o objetivo principal é testar e avaliar a API, optar pelo plano gratuito oferecido pelo Railway parece ser a melhor escolha. Isso nos permite explorar e avaliar a funcionalidade e o desempenho da API sem incorrer em custos significativos;
+- URL da Hospedagem: [Abrir App](https://imm-teste-tecnico-backend.up.railway.app/);
+
+## Por que URLs de vídeos do YouTube:
+- Geralmente, é recomendado utilizar um serviço externo para o armazenamento de vídeos ou fotos, em vez de guardar as mídias dentro do próprio servidor. Existem algumas razões para isso. Primeiro, o armazenamento de mídias dentro do servidor pode ocupar muito espaço em disco, o que pode resultar em custos adicionais de armazenamento e afetar o desempenho do servidor. Além disso, o armazenamento de mídias em um serviço externo oferece maior escalabilidade, flexibilidade e redundância de dados;
+- No caso deste projeto, optei por armazenar apenas os dados no MongoDB, que é um banco de dados não relacional eficiente e adequado para esse propósito. O armazenamento das mídias em um serviço de armazenamento em nuvem, como o Amazon S3 ou o Google Cloud Storage, é uma abordagem comum. Dessa forma, as mídias são armazenadas de forma segura e podem ser acessadas facilmente por meio de URLs;
+- Ao utilizar URLs do YouTube, o front-end pode disponibilizar os vídeos de forma eficiente, sem a necessidade de armazenar os arquivos de vídeo localmente. Isso reduz a carga no servidor e permite que o YouTube lide com a entrega do conteúdo de maneira otimizada;
+- Mesmo assim, se você preferir fazer o armazenamento das mídias no próprio servidor, uma abordagem comum é criar uma pasta chamada "uploads" (ou outro nome apropriado) onde as mídias seriam armazenadas. Dentro dessa pasta, as mídias podem ser organizadas em subpastas de acordo com as categorias. Por exemplo, cada categoria pode ter sua própria subpasta para armazenar as mídias relacionadas. Para fazer o upload das mídias para o servidor, é comum utilizar o formato multipart/form-data para enviar os arquivos por meio de formulários;
+- No entanto, é importante considerar os prós e contras de armazenar mídias no servidor versus utilizar um serviço externo, como mencionado anteriormente. A escolha depende das necessidades específicas do projeto, considerando fatores como escalabilidade, custos, desempenho e segurança;
+- É importante ressaltar que o armazenamento de mídias em um serviço externo é uma prática recomendada, especialmente para projetos de médio a grande porte, onde a gestão eficiente de mídias é essencial;
