@@ -1,9 +1,18 @@
 # TESTE TÉCNICO: Programador(a) Back-End
+<div style="justify-content: space-around;">
+  <img alt="NODE.JS" height="70" width="70" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" />
+  <img alt="Express" height="70" width="70" src="https://www.svgrepo.com/show/330398/express.svg" />
+  <img alt="JS" height="70" width="70" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" />
+  <img alt="MongoDB" height="70" width="70" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" />
+  <img alt="Mongoose" height="70" width="70" src="https://cdn.worldvectorlogo.com/logos/mongoose-1.svg" />
+  <img alt="JWT" height="70" width="70" src="https://seeklogo.com/images/J/json-web-tokens-jwt-io-logo-C003DEC47A-seeklogo.com.png" />
+  <img alt="Nodemon" height="70" width="70" src="https://seeklogo.com/images/N/nodemon-logo-9F66F45AB1-seeklogo.com.png" />
+  <img alt="EsLint" height="70" width="70" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/ESLint_logo.svg/1200px-ESLint_logo.svg.png" />
+</div>
 
+- Techs: NodeJS, Express, JavaScript, MongoDB, Mongoose, JsonWebToken, Nodemon, Eslint
 - [Ver Portifólio Filipe Bacof](https://portifolio-filipe-bacof.vercel.app/)
 
-- Banco de dados utilizado: MongoDB
-<img alt="MongoDB" height="50" width="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" />
 
 ## Tabelas do Banco:
 - `USERS`
