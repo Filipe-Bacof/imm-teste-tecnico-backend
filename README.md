@@ -8,9 +8,10 @@
   <img alt="JWT" height="70" width="70" src="https://seeklogo.com/images/J/json-web-tokens-jwt-io-logo-C003DEC47A-seeklogo.com.png" />
   <img alt="Nodemon" height="70" width="70" src="https://seeklogo.com/images/N/nodemon-logo-9F66F45AB1-seeklogo.com.png" />
   <img alt="EsLint" height="70" width="70" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/ESLint_logo.svg/1200px-ESLint_logo.svg.png" />
+  <img alt="Railway" height="70" width="70" src="https://railway.app/brand/logo-light.png" />
 </div>
 
-- Techs: NodeJS, Express, JavaScript, MongoDB, Mongoose, JsonWebToken, Nodemon, Eslint;
+- Techs: NodeJS, Express, JavaScript, MongoDB, Mongoose, JsonWebToken, Nodemon, Eslint, Railway;
 - Desenvolvido nos dias 19, 20 e 21 de Maio de 2023;
 - [Ver Portifólio Filipe Bacof](https://portifolio-filipe-bacof.vercel.app/);
 
