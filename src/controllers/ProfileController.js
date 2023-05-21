@@ -2,7 +2,22 @@ const Permissions = require('../enum/Permissions')
 const ProfileRepository = require('../repositories/ProfileRepository')
 
 class ProfileController {
-  async index(_request, response) {
+  async index(request, response) {
+    const filter = request.query.filter
+
+    // Encontrando perfis pelo título
+    if (filter) {
+      const profiles = await ProfileRepository.findByFilter(filter)
+
+      if (!profiles)
+        return response
+          .status(400)
+          .json({ message: 'Nenhum perfil encontrado.' })
+
+      return response.json(profiles)
+      // Essa função não está filtrando acentuação
+    }
+
     const profiles = await ProfileRepository.findAll()
 
     return response.json(profiles)

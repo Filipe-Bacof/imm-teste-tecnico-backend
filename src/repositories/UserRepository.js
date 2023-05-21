@@ -57,6 +57,16 @@ class UserRepository {
     return user
   }
 
+  async findByFilter(filter) {
+    const users = await User.find({
+      name: { $regex: filter, $options: 'i' },
+    })
+      .lean()
+      .exec()
+
+    return users
+  }
+
   async create({ name, email, password, pictureUrl, profile, favorites }) {
     const user = new User({
       name,

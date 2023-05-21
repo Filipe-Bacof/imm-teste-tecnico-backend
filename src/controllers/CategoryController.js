@@ -1,7 +1,22 @@
 const CategoryRepository = require('../repositories/CategoryRepository')
 
 class CategoryController {
-  async index(_request, response) {
+  async index(request, response) {
+    const filter = request.query.filter
+
+    // Encontrando categorias pelo título
+    if (filter) {
+      const categories = await CategoryRepository.findByFilter(filter)
+
+      if (!categories)
+        return response
+          .status(400)
+          .json({ message: 'Nenhuma categoria encontrada.' })
+
+      return response.json(categories)
+      // Essa função não está filtrando acentuação
+    }
+
     const categories = await CategoryRepository.findAll()
 
     return response.json(categories)

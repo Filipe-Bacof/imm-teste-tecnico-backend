@@ -5,8 +5,30 @@ const ProfileRepository = require('../repositories/ProfileRepository')
 
 class UsersController {
   async index(request, response) {
-    const { profile } = request.query
+    const profile = request.query.profile
+    const filter = request.query.filter
 
+    if (profile && filter) {
+      // É possível combinar todos os parametros para otimizar a busca
+      return response
+        .status(400)
+        .json({ message: 'Informe apenas um parametro.' })
+    }
+
+    // Encontrando usuários pelo nome
+    if (filter) {
+      const users = await UserRepository.findByFilter(filter)
+
+      if (!users)
+        return response
+          .status(400)
+          .json({ message: 'Nenhum usuário encontrado.' })
+
+      return response.json(users)
+      // Essa função não está filtrando acentuação
+    }
+
+    // Econtrando usuários pelo perfil
     if (profile) {
       const users = await UserRepository.findUsersByProfile(profile)
       return response.json(users)

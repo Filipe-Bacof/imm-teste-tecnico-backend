@@ -19,6 +19,16 @@ class ProfileRepository {
     return profile
   }
 
+  async findByFilter(filter) {
+    const profiles = await Profile.find({
+      title: { $regex: filter, $options: 'i' },
+    })
+      .lean()
+      .exec()
+
+    return profiles
+  }
+
   async findByIdAndUpdate(id, data) {
     const profile = await Profile.findOneAndUpdate(
       { _id: id },

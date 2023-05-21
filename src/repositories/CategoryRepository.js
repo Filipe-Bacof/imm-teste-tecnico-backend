@@ -19,6 +19,16 @@ class CategoryRepository {
     return category
   }
 
+  async findByFilter(filter) {
+    const categories = await Category.find({
+      title: { $regex: filter, $options: 'i' },
+    })
+      .lean()
+      .exec()
+
+    return categories
+  }
+
   async findByIdAndUpdate(id, updateObject) {
     const category = await Category.findOneAndUpdate(
       { _id: id },
