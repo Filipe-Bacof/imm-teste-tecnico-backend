@@ -66,5 +66,31 @@ CATEGORIES
 ## Criação de Usuário
 - Mantive a rota de criação de usuário "desprotegida", para qualquer um poder criar um, como é no facebook por exemplo, dependendo da regra de negócio, são poucas alterações necessárias para adaptar, por exemplo, se for uma pessoa de determinado cargo que possa criar os usuários apenas;
 
+## Todos os EndPoints:
+- `URL/` = rota GET apenas para testar, no navegador ela exibe "Essa é uma rota de teste! A API está funcionando"
+- `URL/auth/register`
+  - POST para cadastrar um novo usuário
+- `URL/auth/login`
+  - POST para fazer login com um usuário cadastrado
+- `URL/users`
+  - endpoint padrão para o CRUD de usuários
+- `URL/profile`
+  - endpoint padrão para o CRUD de perfís
+- `URL/category`
+  - endpoint padrão para o CRUD de categorias
+- `URL/class`
+  - endpoint padrão para o CRUD de aulas
+- `URL/class/favorites`
+  - endpoint padrão para o listagem de aulas favoritas e para favoritar
+
 ## Favoritos
-- Todos os usuários possuem um array de favoritos, a rota `/class/favorite/classId?user=userId` adiciona a aula dentro desse array
+- Todos os usuários possuem um array de favoritos
+- O endpoint `URL/class/favorite/<IDAULA>?user=<IDUSUARIO>` adiciona a aula dentro desse array
+
+## Por que URLs de vídeos do YouTube:
+- Geralmente, é recomendado utilizar um serviço externo para o armazenamento de vídeos ou fotos, em vez de guardar as mídias dentro do próprio servidor. Existem algumas razões para isso. Primeiro, o armazenamento de mídias dentro do servidor pode ocupar muito espaço em disco, o que pode resultar em custos adicionais de armazenamento e afetar o desempenho do servidor. Além disso, o armazenamento de mídias em um serviço externo oferece maior escalabilidade, flexibilidade e redundância de dados.
+- No caso deste projeto, optei por armazenar apenas os dados no MongoDB, que é um banco de dados não relacional eficiente e adequado para esse propósito. O armazenamento das mídias em um serviço de armazenamento em nuvem, como o Amazon S3 ou o Google Cloud Storage, é uma abordagem comum. Dessa forma, as mídias são armazenadas de forma segura e podem ser acessadas facilmente por meio de URLs.
+- Ao utilizar URLs do YouTube, o front-end pode disponibilizar os vídeos de forma eficiente, sem a necessidade de armazenar os arquivos de vídeo localmente. Isso reduz a carga no servidor e permite que o YouTube lide com a entrega do conteúdo de maneira otimizada.
+- Mesmo assim, se você preferir fazer o armazenamento das mídias no próprio servidor, uma abordagem comum é criar uma pasta chamada "uploads" (ou outro nome apropriado) onde as mídias seriam armazenadas. Dentro dessa pasta, as mídias podem ser organizadas em subpastas de acordo com as categorias. Por exemplo, cada categoria pode ter sua própria subpasta para armazenar as mídias relacionadas. Para fazer o upload das mídias para o servidor, é comum utilizar o formato multipart/form-data para enviar os arquivos por meio de formulários.
+- No entanto, é importante considerar os prós e contras de armazenar mídias no servidor versus utilizar um serviço externo, como mencionado anteriormente. A escolha depende das necessidades específicas do projeto, considerando fatores como escalabilidade, custos, desempenho e segurança.
+- É importante ressaltar que o armazenamento de mídias em um serviço externo é uma prática recomendada, especialmente para projetos de médio a grande porte, onde a gestão eficiente de mídias é essencial.
