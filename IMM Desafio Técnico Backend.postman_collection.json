@@ -81,6 +81,52 @@
 					"response": []
 				},
 				{
+					"name": "Get All with Filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users?filter=Filipe",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "Filipe"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All with Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users?profile=646958225c21e1795728fb12",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "profile",
+									"value": "646958225c21e1795728fb12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get One",
 					"request": {
 						"method": "GET",
@@ -169,6 +215,29 @@
 							],
 							"path": [
 								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All with Filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/profile?filter=adm",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"profile"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "adm"
+								}
 							]
 						}
 					},
@@ -280,6 +349,29 @@
 							],
 							"path": [
 								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All with Filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/category?filter=mat",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"category"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "mat"
+								}
 							]
 						}
 					},
