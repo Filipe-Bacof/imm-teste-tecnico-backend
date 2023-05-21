@@ -22,7 +22,7 @@
 - Por outro lado, os `repositories` são responsáveis por realizar as operações de banco de dados, focando exclusivamente na manipulação dos dados.
 - É importante destacar que um repository **nunca** deve realizar tratamento de erros ou outras ações além da interação com o banco de dados.
 
-## Explicando as Tabelas:
+## Explicando estrutura do Banco de Dados:
 - A estrutura de dados que foi implementada proporciona uma maior flexibilidade ao sistema.
 - Em vez de ter tipos de usuários predefinidos, é possível criar `perfis` personalizados e atribuí-los aos `usuários`.
 - Da mesma forma, as `categorias` podem listar quais `perfis` têm acesso às `aulas` relacionadas.
@@ -98,8 +98,13 @@
 - Dependendo da regra de negócio, são poucas as alterações necessárias para adaptar, por exemplo, se for uma pessoa de determinado cargo que possa criar os usuários apenas;
 
 ## Testando a API no Postman
-- Basta Substituir a URL do tópico abaixo pelo seu localhost caso esteja rodando no seu dispositivo, ou substituir a variável {{URL}} dentro do postman pelo link da API publicada no Railway, mais abaixo fornecerei mais informações;
-- Na pasta raiz do projeto você encontrará um JSON chamado `"IMM Desafio Técnico Backend.postman_collection"`, este arquivo você pode importar no `Postman` para efetuar as requisições;
+- Na pasta raiz do projeto você encontrará um JSON chamado `"IMM Desafio Técnico Backend.postman_collection"`, você pode utilizar ele da seguinte forma no `Postman`:
+  - Abra o Postman;
+  - No canto superior esquerdo da interface do Postman, clique em "Importar";
+  - Na janela de importação, selecione a opção "Arquivo" e escolha o JSON disponibilizado;
+  - Clique em "Importar" para importar a coleção no Postman;
+  - Após a importação, você verá a coleção "IMM Desafio Técnico Backend" na barra lateral do Postman;
+  - Agora você poderá efetuar as requisições que eu configurei para a API;
 
 ## Todos os EndPoints:
 - `URL/` = Rota GET apenas para testar, no navegador ela exibe "Essa é uma rota de teste! A API está funcionando";
@@ -130,6 +135,10 @@
 - O Railway oferece integração contínua e implantação contínua (CI/CD), o que significa que qualquer atualização feita neste repositório será refletida automaticamente na aplicação que está online. Isso facilita o processo de implantação e garante que a versão mais recente do código seja sempre executada na aplicação em produção;
 - Com a integração contínua, é possível automatizar o processo de construção, testes e empacotamento do aplicativo. Isso garante que cada alteração de código seja testada e validada antes de ser implantada. Em seguida, a implantação contínua permite que as atualizações sejam distribuídas de forma rápida e eficiente, sem a necessidade de intervenção manual;
 - Essa funcionalidade do Railway torna o processo de atualização da aplicação mais ágil e confiável. Com cada alteração de código, você pode ter a tranquilidade de que a aplicação online será atualizada automaticamente, mantendo-a sempre alinhada com as últimas alterações feitas no repositório. Isso facilita o desenvolvimento iterativo e permite que você implemente rapidamente novos recursos e correções de bugs;
+
+## Informações Importantes:
+- A fim de garantir o funcionamento correto do projeto, é necessário configurar as variáveis de ambiente. Essas configurações permitirão que a aplicação estabeleça conexão com o banco de dados e realize a autenticação de usuários usando JWT (JSON Web Tokens), entre outras funcionalidades.
+- Se você deseja testar a aplicação que hospedei, fique tranquilo, as variáveis já estão configuradas para você. No entanto, se preferir executar a aplicação localmente, posso fornecer as variáveis necessárias. Sinta-se à vontade para entrar em contato comigo para receber essas informações.
 
 ## Por que URLs de vídeos do YouTube:
 - Geralmente, é recomendado utilizar um serviço externo para o armazenamento de vídeos ou fotos, em vez de guardar as mídias dentro do próprio servidor. Existem algumas razões para isso. Primeiro, o armazenamento de mídias dentro do servidor pode ocupar muito espaço em disco, o que pode resultar em custos adicionais de armazenamento e afetar o desempenho do servidor. Além disso, o armazenamento de mídias em um serviço externo oferece maior escalabilidade, flexibilidade e redundância de dados;
