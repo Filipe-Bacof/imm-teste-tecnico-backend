@@ -21,6 +21,16 @@ class ClassRepository {
 
   async findSome(startIndex) {
     const classes = await Class.find({ available: true })
+      .populate([
+        {
+          path: 'category',
+          select: '_id title availableProfiles',
+          populate: {
+            path: 'availableProfiles',
+            select: '_id title',
+          },
+        },
+      ])
       .limit(10)
       .skip(startIndex)
       .exec()
@@ -29,7 +39,19 @@ class ClassRepository {
   }
 
   async findByName(title) {
-    const oneClass = await Class.findOne({ title }).lean().exec()
+    const oneClass = await Class.findOne({ title })
+      .populate([
+        {
+          path: 'category',
+          select: '_id title availableProfiles',
+          populate: {
+            path: 'availableProfiles',
+            select: '_id title',
+          },
+        },
+      ])
+      .lean()
+      .exec()
 
     return oneClass
   }
@@ -38,6 +60,16 @@ class ClassRepository {
     const classes = await Class.find({
       title: { $regex: filter, $options: 'i' },
     })
+      .populate([
+        {
+          path: 'category',
+          select: '_id title availableProfiles',
+          populate: {
+            path: 'availableProfiles',
+            select: '_id title',
+          },
+        },
+      ])
       .lean()
       .exec()
 
@@ -48,7 +80,16 @@ class ClassRepository {
     const availableClasses = await Class.find({
       available: true,
     })
-
+      .populate([
+        {
+          path: 'category',
+          select: '_id title availableProfiles',
+          populate: {
+            path: 'availableProfiles',
+            select: '_id title',
+          },
+        },
+      ])
       .lean()
       .exec()
 
@@ -82,6 +123,18 @@ class ClassRepository {
 
   async findById(id) {
     const oneClass = await Class.findOne({ _id: id })
+      .populate([
+        {
+          path: 'category',
+          select: '_id title availableProfiles',
+          populate: {
+            path: 'availableProfiles',
+            select: '_id title',
+          },
+        },
+      ])
+      .lean()
+      .exec()
 
     return oneClass
   }

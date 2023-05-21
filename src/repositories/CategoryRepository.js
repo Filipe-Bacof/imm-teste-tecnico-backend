@@ -2,19 +2,44 @@ const Category = require('../models/CategorySchema')
 
 class CategoryRepository {
   async findAll() {
-    const categories = await Category.find().lean().exec()
+    const categories = await Category.find()
+      .populate([
+        {
+          path: 'availableProfiles',
+          select: '_id title',
+        },
+      ])
+      .lean()
+      .exec()
 
     return categories
   }
 
   async findSome(startIndex) {
-    const categories = await Category.find().limit(10).skip(startIndex).exec()
+    const categories = await Category.find()
+      .populate([
+        {
+          path: 'availableProfiles',
+          select: '_id title',
+        },
+      ])
+      .limit(10)
+      .skip(startIndex)
+      .exec()
 
     return categories
   }
 
   async findByName(title) {
     const category = await Category.findOne({ title })
+      .populate([
+        {
+          path: 'availableProfiles',
+          select: '_id title',
+        },
+      ])
+      .lean()
+      .exec()
 
     return category
   }
@@ -23,6 +48,12 @@ class CategoryRepository {
     const categories = await Category.find({
       title: { $regex: filter, $options: 'i' },
     })
+      .populate([
+        {
+          path: 'availableProfiles',
+          select: '_id title',
+        },
+      ])
       .lean()
       .exec()
 
@@ -43,6 +74,14 @@ class CategoryRepository {
 
   async findById(id) {
     const category = await Category.findOne({ _id: id })
+      .populate([
+        {
+          path: 'availableProfiles',
+          select: '_id title',
+        },
+      ])
+      .lean()
+      .exec()
 
     return category
   }
