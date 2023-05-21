@@ -66,7 +66,8 @@ CATEGORIES
 - Se você quer adicionar mais permissões, altere no arquivo enum/Permissions.js e utilize estas permissões para efetuar as validações na sua aplicação front-end;
 
 ## Criação de Usuário
-- Mantive a rota de criação de usuário "desprotegida", para qualquer um poder criar um, como é no facebook por exemplo, dependendo da regra de negócio, são poucas alterações necessárias para adaptar, por exemplo, se for uma pessoa de determinado cargo que possa criar os usuários apenas;
+- Mantive a rota de criação de usuário "desprotegida", para qualquer pessoa conseguir criar uma conta, como é no facebook por exemplo;
+- Dependendo da regra de negócio, são poucas as alterações necessárias para adaptar, por exemplo, se for uma pessoa de determinado cargo que possa criar os usuários apenas;
 
 ## Testando a API no Postman
 - Basta Substituir a URL do tópico abaixo pelo seu localhost caso esteja rodando no seu dispositivo, ou substituir a variável {{URL}} dentro do postman pelo link da API publicada no Railway, mais abaixo fornecerei mais informações;
