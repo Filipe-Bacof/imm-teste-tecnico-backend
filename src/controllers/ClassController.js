@@ -4,7 +4,32 @@ const CategoryRepository = require('../repositories/CategoryRepository')
 
 class ClassController {
   async index(request, response) {
-    const page = Number(request.query.page)
+    const user = request.query.user
+    const page = request.query.page
+
+    if (user && page) {
+      // É possível combinar os dois parametros para otimizar a busca
+      return response
+        .status(400)
+        .json({ message: 'Informe apenas um parametro.' })
+    }
+
+    // Encontrando aulas do usuario atual
+    if (user) {
+      const myUser = await UserRepository.findById(user)
+      const classes = await ClassRepository.findAll()
+      const profileId = myUser.profile
+
+      const returnClasses = classes.filter((classObj) => {
+        return classObj.category.some((category) =>
+          category.availableProfiles.some(
+            (profile) => profile._id.toString() === profileId.toString(),
+          ),
+        )
+      })
+
+      return response.json(returnClasses)
+    }
 
     // Paginação das Aulas
     if (page) {

@@ -2,8 +2,17 @@ const Class = require('../models/ClassSchema')
 
 class ClassRepository {
   async findAll() {
-    const classes = await Class.find()
-
+    const classes = await Class.find({ available: true })
+      .populate([
+        {
+          path: 'category',
+          select: '_id title availableProfiles',
+          populate: {
+            path: 'availableProfiles',
+            select: '_id title',
+          },
+        },
+      ])
       .lean()
       .exec()
 
@@ -11,7 +20,10 @@ class ClassRepository {
   }
 
   async findSome(startIndex) {
-    const classes = await Class.find().limit(10).skip(startIndex).exec()
+    const classes = await Class.find({ available: true })
+      .limit(10)
+      .skip(startIndex)
+      .exec()
 
     return classes
   }
