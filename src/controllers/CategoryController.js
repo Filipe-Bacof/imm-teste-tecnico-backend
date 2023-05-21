@@ -95,7 +95,7 @@ class CategoryController {
     await CategoryRepository.deleteCategory(id)
 
     return response
-      .status(204)
+      .status(200)
       .json({ message: 'Categoria apagada com sucesso.' })
   }
 }

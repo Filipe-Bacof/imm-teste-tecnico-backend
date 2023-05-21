@@ -168,7 +168,7 @@ class UsersController {
       await UserRepository.delete(id)
 
       return response
-        .status(204)
+        .status(200)
         .json({ message: 'Usuário deletado com sucesso.' })
     } catch (error) {
       console.error('Erro durante a exclusão do usuário:', error)

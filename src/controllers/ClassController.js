@@ -169,14 +169,15 @@ class ClassController {
     const { id } = request.params
 
     const oneClass = await ClassRepository.findById(id)
-    if (!oneClass)
+    if (!oneClass) {
       return response
         .status(404)
         .json({ message: 'Esta aula não foi encontrada.' })
+    }
 
     await ClassRepository.deleteClass(id)
 
-    return response.status(204).json({ message: 'Aula deletada com sucesso.' })
+    return response.status(200).json({ message: 'Aula deletada com sucesso.' })
   }
 
   async handleAvailability(request, response) {

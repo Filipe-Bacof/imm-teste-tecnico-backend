@@ -129,7 +129,7 @@ class ProfileController {
       await ProfileRepository.deleteProfile(id)
 
       return response
-        .status(204)
+        .status(200)
         .json({ message: 'Perfil apagado com sucesso.' })
     } catch (error) {
       console.error('Erro durante a exclusão do perfil:', error)
