@@ -66,6 +66,10 @@ CATEGORIES
 ## Criação de Usuário
 - Mantive a rota de criação de usuário "desprotegida", para qualquer um poder criar um, como é no facebook por exemplo, dependendo da regra de negócio, são poucas alterações necessárias para adaptar, por exemplo, se for uma pessoa de determinado cargo que possa criar os usuários apenas;
 
+## Testando a API no postman
+- Basta Substituir a URL do tópico abaixo pelo seu localhost caso esteja rodando no seu dispositivo, ou substituir a variável {{URL}} dentro do postman pelo link da API publicada no Railway, mais abaixo fornecerei mais informações.
+- Na pasta raiz do projeto você encontrará um JSON chamado `"IMM Desafio Técnico Backend.postman_collection"`, este arquivo você pode importar no `Postman` para efetuar as requisições.
+
 ## Todos os EndPoints:
 - `URL/` = rota GET apenas para testar, no navegador ela exibe "Essa é uma rota de teste! A API está funcionando"
 - `URL/auth/register`
@@ -94,3 +98,10 @@ CATEGORIES
 - Mesmo assim, se você preferir fazer o armazenamento das mídias no próprio servidor, uma abordagem comum é criar uma pasta chamada "uploads" (ou outro nome apropriado) onde as mídias seriam armazenadas. Dentro dessa pasta, as mídias podem ser organizadas em subpastas de acordo com as categorias. Por exemplo, cada categoria pode ter sua própria subpasta para armazenar as mídias relacionadas. Para fazer o upload das mídias para o servidor, é comum utilizar o formato multipart/form-data para enviar os arquivos por meio de formulários.
 - No entanto, é importante considerar os prós e contras de armazenar mídias no servidor versus utilizar um serviço externo, como mencionado anteriormente. A escolha depende das necessidades específicas do projeto, considerando fatores como escalabilidade, custos, desempenho e segurança.
 - É importante ressaltar que o armazenamento de mídias em um serviço externo é uma prática recomendada, especialmente para projetos de médio a grande porte, onde a gestão eficiente de mídias é essencial.
+
+## Hospedagem:
+- [Ver site do Railway](https://railway.app/)
+- Eu escolhi implantar a API usando o Railway, que oferece um plano gratuito bastante generoso, disponibilizando 500 horas gratuitas de uso por mês.
+- Nesta situação, onde o objetivo principal é testar e avaliar a API, optar pelo plano gratuito oferecido pelo Railway parece ser a melhor escolha. Isso nos permite explorar e avaliar a funcionalidade e o desempenho da API sem incorrer em custos significativos.
+- URL da Hospedagem: [Abrir App](https://imm-teste-tecnico-backend.up.railway.app/)
+- Como 
