@@ -22,9 +22,7 @@ class UsersController {
     const user = await UserRepository.findById(id)
 
     if (!user)
-      return response
-        .status(400)
-        .json({ message: 'Nenhum usuário encontrado.' })
+      return response.status(400).json({ message: 'Usuário não encontrado.' })
 
     return response
       .status(200)

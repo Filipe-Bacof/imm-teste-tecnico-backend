@@ -13,9 +13,7 @@ class CategoryController {
     const category = await CategoryRepository.findById(id)
 
     if (!category)
-      return response
-        .status(400)
-        .json({ message: 'Nenhuma categoria foi encontrada' })
+      return response.status(400).json({ message: 'Categoria não encontrada' })
 
     return response.json(category)
   }

@@ -14,9 +14,7 @@ class ProfileController {
     const profile = await ProfileRepository.findById(id)
 
     if (!profile)
-      return response
-        .status(400)
-        .json({ message: 'Nenhum perfil foi encontrado.' })
+      return response.status(400).json({ message: 'Perfil não encontrado.' })
 
     return response.json(profile)
   }

@@ -49,11 +49,35 @@ class ClassController {
     const oneClass = await ClassRepository.findById(id)
 
     if (!oneClass)
-      return response.status(400).json({ message: 'Nenhuma aula encontrada.' })
+      return response.status(400).json({ message: 'Aula não encontrada.' })
 
     return response
       .status(200)
       .json({ message: 'Aula encontrada com sucesso', oneClass })
+  }
+
+  async getUserFavoriteClasses(request, response) {
+    const { id } = request.params // ID do usuário
+
+    const oneUser = await UserRepository.findById(id)
+    if (!oneUser) {
+      return response.status(400).json({ message: 'Usuário não encontrado.' })
+    }
+
+    if (oneUser.favorites.length === 0) {
+      return response
+        .status(200)
+        .json({ message: 'Nenhuma aula foi favoritada.' })
+    }
+
+    const favoriteClasses = await Promise.all(
+      oneUser.favorites.map(async (favoriteId) => {
+        const favoriteClass = await ClassRepository.findById(favoriteId)
+        return favoriteClass
+      }),
+    )
+
+    return response.status(200).json(favoriteClasses)
   }
 
   async available(_request, response) {
@@ -108,6 +132,46 @@ class ClassController {
     await newClass.save()
 
     return response.status(200).json(newClass)
+  }
+
+  async favoriteClass(request, response) {
+    const { id } = request.params // ID da aula
+    const user = request.query.user // ID do usuario
+
+    try {
+      const oneClass = await ClassRepository.findById(id)
+
+      const oneUser = await UserRepository.findById(user)
+
+      if (!oneClass) {
+        response.status(404).json({ errors: ['Aula não encontrada!'] })
+        return
+      }
+
+      if (!oneUser) {
+        response.status(404).json({ errors: ['Usuário não encontrado!'] })
+        return
+      }
+
+      if (oneUser.favorites.includes(id)) {
+        response.status(422).json({ errors: ['Você já favoritou essa aula.'] })
+        return
+      }
+
+      oneUser.favorites.push(id)
+
+      await oneUser.save()
+
+      response.status(200).json({
+        classId: id,
+        className: oneClass.title,
+        userId: user,
+        userName: oneUser.name,
+        message: `A aula "${oneClass.title}" foi favoritada pelo usuário "${oneUser.name}".`,
+      })
+    } catch (error) {
+      response.status(404).json({ errors: ['Aula não encontrada!'] })
+    }
   }
 
   async update(request, response) {

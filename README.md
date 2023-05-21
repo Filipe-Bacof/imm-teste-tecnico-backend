@@ -13,9 +13,23 @@
 - Techs: NodeJS, Express, JavaScript, MongoDB, Mongoose, JsonWebToken, Nodemon, Eslint
 - [Ver Portifólio Filipe Bacof](https://portifolio-filipe-bacof.vercel.app/)
 
+## Arquitetura Escolhida:
+- A arquitetura deste projeto segue o paradigma de Programação Orientada a Objetos (POO) e utiliza um design pattern chamado `Singleton`.
+- Nessa abordagem, as classes são projetadas para serem instanciadas apenas uma vez.
+- No contexto deste projeto, os `controllers` são responsáveis por lidar com todas as regras de negócio, incluindo o tratamento de dados e a implementação das regras específicas.
+- Por outro lado, os `repositories` são responsáveis por realizar as operações de banco de dados, focando exclusivamente na manipulação dos dados.
+- É importante destacar que um repository **nunca** deve realizar tratamento de erros ou outras ações além da interação com o banco de dados.
+
+## Explicando as Tabelas:
+- A estrutura de dados que foi implementada proporciona uma maior flexibilidade ao sistema.
+- Em vez de ter tipos de usuários predefinidos, é possível criar `perfis` personalizados e atribuí-los aos `usuários`.
+- Da mesma forma, as `categorias` podem listar quais `perfis` têm acesso às `aulas` relacionadas.
+- Essa abordagem torna o sistema mais versátil e profissional, permitindo que o `Product Owner` adapte a estrutura de acordo com suas necessidades e compreensão.
+- **Isso oferece maior autonomia, controle e segurança ao Product Owner.**
 
 ## Tabelas do Banco:
-- `USERS`
+```
+USERS
   - _id: Gerado pelo mongoDB;
   - name: Nome do usuário;
   - email: Email para login;
@@ -23,13 +37,15 @@
   - picture_url: URL de uma imagem para exibir no front;
   - profile: Referencia a tabela de perfil, só pode ter 1 perfil no usuário;
   - favorites: todas as aulas favoritadas pelo usuário;
-
-- `PROFILES`
+```
+```
+PROFILES
   - _id: Gerado pelo mongoDB;
   - title: Identificador do perfil;
   - permissions (enum): Array com as permissões pré-definidas com os CRUDS;
-
-- `CLASSES`
+```
+```
+CLASSES
   - _id: Gerado pelo mongoDB;
   - title: Titulo da aula;
   - class_url: URL do vídeo do youtube de uma aula;
@@ -37,14 +53,18 @@
   - description: Descrição da aula;
   - creator_user_id: Usuário que disponibilizou essa aula no sistema;
   - category: Categoria da aula (pode ser 1 ou mais)
-  
-- `CATEGORIES`
+```
+```
+CATEGORIES
   - _id: Gerado pelo mongoDB;
   - title: Identificador da categoria;
   - available_profiles: Para quais perfís essa categoria é visível;
-
-### ENUM PERMISSIONS
+```
+## ENUM PERMISSIONS
 - Contém todos os CRUDS, para que apenas usuários autorizados possam efetuar as operações que lhe forem atribuidas, isso garante uma forma dinâmica para arquitetar o front-end;
 
 ## Criação de Usuário
 - Mantive a rota de criação de usuário "desprotegida", para qualquer um poder criar um, como é no facebook por exemplo, dependendo da regra de negócio, são poucas alterações necessárias para adaptar, por exemplo, se for uma pessoa de determinado cargo que possa criar os usuários apenas;
+
+## Favoritos
+- Todos os usuários possuem um array de favoritos, a rota `/class/favorite/classId?user=userId` adiciona a aula dentro desse array

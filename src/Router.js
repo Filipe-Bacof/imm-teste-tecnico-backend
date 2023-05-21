@@ -37,8 +37,14 @@ router.delete(
 // Class Routes
 router.get('/class', verifyTokenJwt, ClassController.index)
 router.get('/class/:id', verifyTokenJwt, ClassController.show)
+router.get(
+  '/class/favorites/:id',
+  verifyTokenJwt,
+  ClassController.getUserFavoriteClasses,
+)
 router.post('/class', verifyTokenJwt, ClassController.store)
 router.put('/class/:id', verifyTokenJwt, ClassController.update)
+router.put('/class/favorite/:id', verifyTokenJwt, ClassController.favoriteClass)
 router.delete('/class/:id', verifyTokenJwt, ClassController.deleteClass)
 
 // Rota Teste
