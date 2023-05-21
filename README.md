@@ -107,7 +107,8 @@
   - Agora você poderá efetuar as requisições que eu configurei para a API;
 
 ## Todos os EndPoints:
-- `URL/` = Rota GET apenas para testar, no navegador ela exibe "Essa é uma rota de teste! A API está funcionando";
+- `URL/`
+  - Rota GET apenas para testar, no navegador ela exibe "Essa é uma rota de teste! A API está funcionando";
 - `URL/auth/register`
   - POST para cadastrar um novo usuário;
 - `URL/auth/login`
