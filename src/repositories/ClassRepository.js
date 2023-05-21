@@ -29,9 +29,19 @@ class ClassRepository {
   }
 
   async findByName(title) {
-    const oneClass = await Class.findOne({ title })
+    const oneClass = await Class.findOne({ title }).lean().exec()
 
     return oneClass
+  }
+
+  async findByFilter(filter) {
+    const classes = await Class.find({
+      title: { $regex: filter, $options: 'i' },
+    })
+      .lean()
+      .exec()
+
+    return classes
   }
 
   async findAvailable() {

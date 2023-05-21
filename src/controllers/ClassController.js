@@ -6,9 +6,15 @@ class ClassController {
   async index(request, response) {
     const user = request.query.user
     const page = request.query.page
+    const filter = request.query.filter
 
-    if (user && page) {
-      // É possível combinar os dois parametros para otimizar a busca
+    if (
+      (user && page) ||
+      (user && filter) ||
+      (page && filter) ||
+      (page && filter && user)
+    ) {
+      // É possível combinar todos os parametros para otimizar a busca
       return response
         .status(400)
         .json({ message: 'Informe apenas um parametro.' })
@@ -36,6 +42,19 @@ class ClassController {
       const startIndex = (page - 1) * 10
       const classes = await ClassRepository.findSome(startIndex)
       return response.json(classes)
+    }
+
+    // Encontrando aulas pelo título
+    if (filter) {
+      const classes = await ClassRepository.findByFilter(filter)
+
+      if (!classes)
+        return response
+          .status(400)
+          .json({ message: 'Nenhuma aula encontrada.' })
+
+      return response.json(classes)
+      // Essa função não está filtrando acentuação
     }
 
     const classes = await ClassRepository.findAll()
