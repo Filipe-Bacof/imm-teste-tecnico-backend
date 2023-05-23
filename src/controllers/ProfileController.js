@@ -26,12 +26,17 @@ class ProfileController {
   async show(request, response) {
     const { id } = request.params
 
-    const profile = await ProfileRepository.findById(id)
+    try {
+      const profile = await ProfileRepository.findById(id)
 
-    if (!profile)
+      if (!profile)
+        return response.status(400).json({ message: 'Perfil não encontrado.' })
+
+      return response.json(profile)
+    } catch (error) {
+      console.log(error)
       return response.status(400).json({ message: 'Perfil não encontrado.' })
-
-    return response.json(profile)
+    }
   }
 
   async store(request, response) {

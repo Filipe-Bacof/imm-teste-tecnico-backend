@@ -20,83 +20,100 @@ class ClassController {
         .json({ message: 'Informe apenas um parametro.' })
     }
 
-    // Encontrando aulas do usuario atual
-    if (user) {
-      const myUser = await UserRepository.findById(user)
+    try {
+      // Encontrando aulas do usuario atual
+      if (user) {
+        const myUser = await UserRepository.findById(user)
+        const classes = await ClassRepository.findAll()
+        const profileId = myUser.profile
+
+        const returnClasses = classes.filter((classObj) => {
+          return classObj.category.some((category) =>
+            category.availableProfiles.some(
+              (profile) => profile._id.toString() === profileId.toString(),
+            ),
+          )
+        })
+
+        return response.json(returnClasses)
+      }
+
+      // Paginação das Aulas
+      if (page) {
+        const startIndex = (page - 1) * 10
+        const classes = await ClassRepository.findSome(startIndex)
+        return response.json(classes)
+      }
+
+      // Encontrando aulas pelo título
+      if (filter) {
+        const classes = await ClassRepository.findByFilter(filter)
+
+        if (!classes)
+          return response
+            .status(400)
+            .json({ message: 'Nenhuma aula encontrada.' })
+
+        return response.json(classes)
+        // Essa função não está filtrando acentuação
+      }
+
       const classes = await ClassRepository.findAll()
-      const profileId = myUser.profile
-
-      const returnClasses = classes.filter((classObj) => {
-        return classObj.category.some((category) =>
-          category.availableProfiles.some(
-            (profile) => profile._id.toString() === profileId.toString(),
-          ),
-        )
-      })
-
-      return response.json(returnClasses)
-    }
-
-    // Paginação das Aulas
-    if (page) {
-      const startIndex = (page - 1) * 10
-      const classes = await ClassRepository.findSome(startIndex)
-      return response.json(classes)
-    }
-
-    // Encontrando aulas pelo título
-    if (filter) {
-      const classes = await ClassRepository.findByFilter(filter)
-
-      if (!classes)
-        return response
-          .status(400)
-          .json({ message: 'Nenhuma aula encontrada.' })
 
       return response.json(classes)
-      // Essa função não está filtrando acentuação
+    } catch (error) {
+      console.log(error)
+      return response.status(400).json({ message: 'Nenhuma aula encontrada.' })
     }
-
-    const classes = await ClassRepository.findAll()
-
-    return response.json(classes)
   }
 
   async show(request, response) {
     const { id } = request.params
 
-    const oneClass = await ClassRepository.findById(id)
+    try {
+      const oneClass = await ClassRepository.findById(id)
 
-    if (!oneClass)
-      return response.status(400).json({ message: 'Aula não encontrada.' })
+      if (!oneClass)
+        return response.status(400).json({ message: 'Aula não encontrada.' })
 
-    return response
-      .status(200)
-      .json({ message: 'Aula encontrada com sucesso', oneClass })
+      return response
+        .status(200)
+        .json({ message: 'Aula encontrada com sucesso', oneClass })
+    } catch (error) {
+      console.log(error)
+      return response.status(400).json({ message: 'Nenhuma aula encontrada.' })
+    }
   }
 
   async getUserFavoriteClasses(request, response) {
     const { id } = request.params // ID do usuário
 
-    const oneUser = await UserRepository.findById(id)
-    if (!oneUser) {
-      return response.status(400).json({ message: 'Usuário não encontrado.' })
-    }
+    try {
+      const oneUser = await UserRepository.findById(id)
+      if (!oneUser) {
+        return response.status(400).json({ message: 'Usuário não encontrado.' })
+      }
 
-    if (oneUser.favorites.length === 0) {
+      if (oneUser.favorites.length === 0) {
+        return response
+          .status(200)
+          .json({ message: 'Nenhuma aula foi favoritada.' })
+      }
+
+      const favoriteClasses = await Promise.all(
+        oneUser.favorites.map(async (favoriteId) => {
+          const favoriteClass = await ClassRepository.findById(favoriteId)
+          return favoriteClass
+        }),
+      )
+
+      return response.status(200).json(favoriteClasses)
+    } catch (error) {
+      console.log(error)
       return response
-        .status(200)
-        .json({ message: 'Nenhuma aula foi favoritada.' })
+        .status(400)
+        .json({ message: 'Erro! Usuário não encontrado.' })
     }
-
-    const favoriteClasses = await Promise.all(
-      oneUser.favorites.map(async (favoriteId) => {
-        const favoriteClass = await ClassRepository.findById(favoriteId)
-        return favoriteClass
-      }),
-    )
-
-    return response.status(200).json(favoriteClasses)
   }
 
   async available(_request, response) {
@@ -124,18 +141,30 @@ class ClassController {
       return response
         .status(422)
         .json({ message: 'Uma aula com este mesmo nome já foi cadastrada' })
-
-    const actualCategory = await CategoryRepository.findById(category)
-    if (!actualCategory)
+    try {
+      const actualCategory = await CategoryRepository.findById(category)
+      if (!actualCategory)
+        return response
+          .status(404)
+          .json({ message: 'A categoria especificada não foi encontrada' })
+    } catch (error) {
+      console.log(error)
       return response
         .status(404)
         .json({ message: 'A categoria especificada não foi encontrada' })
-
-    const creatorUser = await UserRepository.findById(creatorUserId)
-    if (!creatorUser)
+    }
+    try {
+      const creatorUser = await UserRepository.findById(creatorUserId)
+      if (!creatorUser)
+        return response
+          .status(404)
+          .json({ message: 'O usuário especificado não foi encontrado' })
+    } catch (error) {
+      console.log(error)
       return response
         .status(404)
         .json({ message: 'O usuário especificado não foi encontrado' })
+    }
 
     const newClass = await ClassRepository.create({
       title,
@@ -189,6 +218,7 @@ class ClassController {
         message: `A aula "${oneClass.title}" foi favoritada pelo usuário "${oneUser.name}".`,
       })
     } catch (error) {
+      console.log(error)
       response.status(404).json({ errors: ['Aula não encontrada!'] })
     }
   }
@@ -251,32 +281,48 @@ class ClassController {
   async deleteClass(request, response) {
     const { id } = request.params
 
-    const oneClass = await ClassRepository.findById(id)
-    if (!oneClass) {
+    try {
+      const oneClass = await ClassRepository.findById(id)
+      if (!oneClass) {
+        return response
+          .status(404)
+          .json({ message: 'Esta aula não foi encontrada.' })
+      }
+
+      await ClassRepository.deleteClass(id)
+
+      return response
+        .status(200)
+        .json({ message: 'Aula deletada com sucesso.' })
+    } catch (error) {
+      console.log(error)
       return response
         .status(404)
         .json({ message: 'Esta aula não foi encontrada.' })
     }
-
-    await ClassRepository.deleteClass(id)
-
-    return response.status(200).json({ message: 'Aula deletada com sucesso.' })
   }
 
   async handleAvailability(request, response) {
     const { id } = request.params
     const { available } = request.body
 
-    await ClassRepository.handleAvailability({
-      id,
-      available,
-    })
+    try {
+      await ClassRepository.handleAvailability({
+        id,
+        available,
+      })
 
-    return response.status(200).json({
-      message: `Aula foi alterada visibilidade para ${
-        available ? 'disponível' : 'indisponível'
-      }`,
-    })
+      return response.status(200).json({
+        message: `Aula foi alterada visibilidade para ${
+          available ? 'disponível' : 'indisponível'
+        }`,
+      })
+    } catch (error) {
+      console.log(error)
+      return response.status(404).json({
+        message: 'Houve um erro ao tentar atualizar a visibilidade desta aula.',
+      })
+    }
   }
 }
 

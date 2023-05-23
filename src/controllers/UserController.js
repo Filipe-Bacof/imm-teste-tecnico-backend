@@ -41,14 +41,19 @@ class UsersController {
   async show(request, response) {
     const { id } = request.params
 
-    const user = await UserRepository.findById(id)
+    try {
+      const user = await UserRepository.findById(id)
 
-    if (!user)
+      if (!user)
+        return response.status(400).json({ message: 'Usuário não encontrado.' })
+
+      return response
+        .status(200)
+        .json({ message: 'Usuário encontrado com sucesso', user })
+    } catch (error) {
+      console.log(error)
       return response.status(400).json({ message: 'Usuário não encontrado.' })
-
-    return response
-      .status(200)
-      .json({ message: 'Usuário encontrado com sucesso', user })
+    }
   }
 
   async register(request, response) {
@@ -67,11 +72,18 @@ class UsersController {
         .status(422)
         .json({ message: 'Esse usuário já foi cadastrado' })
 
-    const isProfileValid = await ProfileRepository.findById(profile)
-    if (!isProfileValid)
+    try {
+      const isProfileValid = await ProfileRepository.findById(profile)
+      if (!isProfileValid)
+        return response
+          .status(404)
+          .json({ message: 'O perfil definido não existe.' })
+    } catch (error) {
+      console.log(error)
       return response
         .status(404)
         .json({ message: 'O perfil definido não existe.' })
+    }
 
     const salt = await bcrypt.genSalt(12)
     const passwordHash = await bcrypt.hash(password, salt)
@@ -142,12 +154,19 @@ class UsersController {
     const { name, email, password, profile, pictureUrl, favorites } =
       request.body
 
-    const user = await UserRepository.findById(id)
+    try {
+      const user = await UserRepository.findById(id)
 
-    if (!user)
+      if (!user)
+        return response
+          .status(404)
+          .json({ message: 'Este usuário não foi encontrado.' })
+    } catch (error) {
+      console.log(error)
       return response
         .status(404)
-        .json({ message: 'Este usuário não foi encontrado.' })
+        .json({ message: 'Erro! Este usuário não foi encontrado.' })
+    }
 
     let updatedUser = {
       id,

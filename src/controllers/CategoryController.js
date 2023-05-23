@@ -25,12 +25,19 @@ class CategoryController {
   async show(request, response) {
     const { id } = request.params
 
-    const category = await CategoryRepository.findById(id)
+    try {
+      const category = await CategoryRepository.findById(id)
 
-    if (!category)
+      if (!category)
+        return response
+          .status(400)
+          .json({ message: 'Categoria não encontrada' })
+
+      return response.json(category)
+    } catch (error) {
+      console.log(error)
       return response.status(400).json({ message: 'Categoria não encontrada' })
-
-    return response.json(category)
+    }
   }
 
   async store(request, response) {
@@ -98,18 +105,25 @@ class CategoryController {
   async deleteCategory(request, response) {
     const { id } = request.params
 
-    const categoria = await CategoryRepository.findById(id)
+    try {
+      const categoria = await CategoryRepository.findById(id)
 
-    if (!categoria)
+      if (!categoria)
+        return response
+          .status(404)
+          .json({ message: 'Esta categoria não foi encontrada.' })
+
+      await CategoryRepository.deleteCategory(id)
+
+      return response
+        .status(200)
+        .json({ message: 'Categoria apagada com sucesso.' })
+    } catch (error) {
+      console.log(error)
       return response
         .status(404)
         .json({ message: 'Esta categoria não foi encontrada.' })
-
-    await CategoryRepository.deleteCategory(id)
-
-    return response
-      .status(200)
-      .json({ message: 'Categoria apagada com sucesso.' })
+    }
   }
 }
 
