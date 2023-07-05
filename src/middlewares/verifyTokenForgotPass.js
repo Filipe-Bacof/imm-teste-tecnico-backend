@@ -1,6 +1,6 @@
 const UserRepository = require('../repositories/UserRepository')
 
-export async function verifyTokenForgotPass(request, response, next) {
+async function verifyTokenForgotPass(request, response, next) {
   const { email, password, token } = request.body
 
   if (!token)
@@ -38,3 +38,5 @@ export async function verifyTokenForgotPass(request, response, next) {
       .json({ message: 'Erro ao tentar recuperar a senha, tente novamente!' })
   }
 }
+
+module.exports = verifyTokenForgotPass
