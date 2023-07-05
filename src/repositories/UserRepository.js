@@ -178,9 +178,48 @@ class UserRepository {
     return user
   }
 
+  // Essa função não está filtrando acentuação
   async findByFilter(filter) {
     const users = await User.find({
       name: { $regex: filter, $options: 'i' },
+    })
+      .populate([
+        { path: 'profile', select: '_id title permissions' },
+        {
+          path: 'favorites',
+          select:
+            '_id title classUrl available description creatorUserId category',
+          populate: [
+            {
+              path: 'creatorUserId',
+              select: '_id name profile',
+              populate: {
+                path: 'profile',
+                select: '_id title',
+              },
+            },
+            {
+              path: 'category',
+              select: '_id title',
+            },
+          ],
+        },
+      ])
+      .lean()
+      .exec()
+
+    return users
+  }
+
+  // Essa função não está filtrando acentuação
+  async findUsersByProfileAndFilter(profile, filter) {
+    const users = await User.find({
+      $and: [
+        { profile },
+        {
+          name: { $regex: filter, $options: 'i' },
+        },
+      ],
     })
       .populate([
         { path: 'profile', select: '_id title permissions' },

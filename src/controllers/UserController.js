@@ -9,10 +9,17 @@ class UsersController {
     const filter = request.query.filter
 
     if (profile && filter) {
-      // É possível combinar todos os parametros para otimizar a busca
-      return response
-        .status(400)
-        .json({ message: 'Informe apenas um parametro.' })
+      const users = await UserRepository.findUsersByProfileAndFilter(
+        profile,
+        filter,
+      )
+
+      if (!users)
+        return response
+          .status(400)
+          .json({ message: 'Nenhum usuário encontrado.' })
+
+      return response.json(users)
     }
 
     // Encontrando usuários pelo nome
@@ -110,12 +117,16 @@ class UsersController {
     const user = await UserRepository.findByEmail(email)
 
     if (!user)
-      return response.status(404).json({ message: 'Usuário não encontrado' })
+      return response
+        .status(422)
+        .json({ message: 'Algo deu errado com o login.' })
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password)
 
     if (!isPasswordCorrect)
-      return response.status(422).json({ message: 'Senha incorreta.' })
+      return response
+        .status(422)
+        .json({ message: 'Algo deu errado com o login.' })
 
     try {
       const { JWT_SECRET } = process.env
@@ -145,7 +156,7 @@ class UsersController {
         token,
       })
     } catch (err) {
-      response.send(500).json('Algo deu errado com o login.')
+      response.send(422).json('Algo deu errado com o login.')
     }
   }
 
