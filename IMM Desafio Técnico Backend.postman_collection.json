@@ -197,6 +197,60 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"filipebacof@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/forgot",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"forgot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate New Pass",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"filipebacof@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"token\": \"c42b43d6c0092c79fea1a92be88c096d452ab669\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/newpass",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"newpass"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
