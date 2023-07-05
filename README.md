@@ -7,11 +7,12 @@
   <img alt="Mongoose" height="70" width="70" src="https://cdn.worldvectorlogo.com/logos/mongoose-1.svg" />
   <img alt="JWT" height="70" width="70" src="https://seeklogo.com/images/J/json-web-tokens-jwt-io-logo-C003DEC47A-seeklogo.com.png" />
   <img alt="Nodemon" height="70" width="70" src="https://seeklogo.com/images/N/nodemon-logo-9F66F45AB1-seeklogo.com.png" />
+  <img alt="Nodemailer" height="70" width="70" src="https://i0.wp.com/community.nodemailer.com/wp-content/uploads/2015/10/n2-2.png" />
   <img alt="EsLint" height="70" width="70" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/ESLint_logo.svg/1200px-ESLint_logo.svg.png" />
   <img alt="Railway" height="70" width="70" src="https://railway.app/brand/logo-light.png" />
 </div>
 
-- Techs: NodeJS, Express, JavaScript, MongoDB, Mongoose, JsonWebToken, Nodemon, Eslint, Railway;
+- Techs: NodeJS, Express, JavaScript, MongoDB, Mongoose, JsonWebToken, Nodemon, NodeMailer, Eslint, Railway;
 - Desenvolvido nos dias 19, 20 e 21 de Maio de 2023;
 - [Ver Portifólio Filipe Bacof](https://portifolio-filipe-bacof.vercel.app/);
 
@@ -113,6 +114,10 @@
   - POST para cadastrar um novo usuário;
 - `URL/auth/login`
   - POST para fazer login com um usuário cadastrado;
+- `URL/auth/forgot`
+  - POST para fazer solicitar token por email (esquecimento de senha);
+- `URL/auth/newpass`
+  - POST para atualizar a senha (requer token da rota `URL/auth/forgot`);
 - `URL/users`
   - Endpoint padrão para o CRUD de usuários;
 - `URL/profile`
@@ -127,6 +132,12 @@
 ## Favoritos
 - Todos os usuários possuem um array de favoritos;
 - O endpoint `URL/class/favorite/<IDAULA>?user=<IDUSUARIO>` adiciona a aula dentro desse array;
+
+## Recuperação de senha
+- Caso o usuário esqueça a senha, implantei um pequeno sistema de recuperação de senha com Nodemailer, ele funciona em duas etapas:
+1. O usuário solicita um token por e-mail através do endpoint `URL/auth/forgot`.
+2. O token é válido por 1 hora (eu configurei assim porém pode ser customizado dependendo da regra de negócios), então é necessário solicitar a nova senha no endpoint `URL/auth/newpass`, informando o token recebido por e-mail.
+- O e-mail que eu utilizei é o gmail do meu portifólio novo, que utiliza esse email para o formulário de contato, como ele já está configurado para envio SMTP foi uma opção válida, porém para sistemas profissionais existem diversas outras opções (como o mailchimp por exemplo).
 
 ## Hospedagem:
 - [Ver site do Railway](https://railway.app/)
