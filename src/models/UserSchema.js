@@ -24,6 +24,14 @@ const userSchema = new Schema(
       required: true,
       ref: 'Profile',
     },
+    passwordResetToken: {
+      type: String,
+      trim: true,
+    },
+    passwordResetExpires: {
+      type: Date,
+      trim: true,
+    },
     favorites: [
       {
         type: mongoose.ObjectId,

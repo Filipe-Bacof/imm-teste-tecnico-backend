@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const verifyTokenJwt = require('./middlewares/verifyTokenJwt')
+const verifyTokenForgotPass = require('./middlewares/verifyTokenForgotPass')
 
 const UserController = require('./controllers/UserController')
 const ProfileController = require('./controllers/ProfileController')
@@ -11,6 +12,8 @@ const ClassController = require('./controllers/ClassController')
 // User Routes
 router.post('/auth/register', UserController.register)
 router.post('/auth/login', UserController.login)
+router.post('/auth/forgot', UserController.forgot)
+router.post('/auth/newpass', verifyTokenForgotPass, UserController.newPass)
 router.get('/users', verifyTokenJwt, UserController.index)
 router.get('/users/:id', verifyTokenJwt, UserController.show)
 router.put('/users/:id', verifyTokenJwt, UserController.update)
